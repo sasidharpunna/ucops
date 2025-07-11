@@ -1,0 +1,22 @@
+table:
+  name: ccdetails
+  description: "Table containing customer credit details"
+  drop: false
+  re-create: false
+  location: "s3://my-bucket/data/ccdetails/"
+  columns:
+    - name: store
+      nullable: true
+      precision: 0
+      scale: 0
+      type: int
+    - name: country
+      nullable: true
+      precision: 0
+      scale: 0
+      type: string
+  partitioned_by:
+    - name: store
+      type: int
+    - name: country
+      type: string

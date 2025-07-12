@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # This workflow contains a single job called "build"
+  checkout-specific-pr:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout PR source branch
+          uses: actions/checkout@v4
+          with:
+            ref: refs/pull/$PR_NUM/head
+            path: ./checkout/$PR_NUM
+        - name: Checkout PR source branch
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.head_ref }}
+            path: ./checkout/src_branch
+        - name: Checkout PR target branch
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.base_ref }}
+            path: ./checkout/tgt_branch
+        

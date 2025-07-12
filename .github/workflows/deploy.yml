@@ -13,6 +13,11 @@ jobs:
   checkout-specific-pr:
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout main branch
+          uses: actions/checkout@v4
+          with:
+            ref: main
+            path: ./checkout/main
         - name: Checkout PR source branch
           uses: actions/checkout@v4
           with:
@@ -28,4 +33,10 @@ jobs:
           with:
             ref: ${{ github.base_ref }}
             path: ./checkout/tgt_branch
+        - name: Setup Python Environment
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Generating SQL Statements
+          run: python ./checkout/main/.github/scripts/sqlgenerator.py $PR_NUM
         
